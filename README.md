@@ -265,3 +265,12 @@ netdata (monitor):
         - NOTE: No database required by netdata.
 
 ```
+## Alias
+ 
+> La feature de alias de correo es de pago pero se puede utilizar sin pagar. Examina la base de datos, busca ayuda en google y averigua como crear un alias info@devops-master.com que apunte a las 2 cuentas creadas anteriormente.
+> Cuando esté configurado, envia un correo a info y comprueba que ambos lo reciben.
+
+## Secondary MX.
+> Enciende un servidor tipo CX11 con debian y mira como configurar este servidor como mx secundario.
+> 
+> Cuando lo tengas instalado y configurado intenta apagar el servidor principal. Cuando esté apagado envia un correo y mira en el log del secundario si lo recibe. Una vez recibido por el secundario enciende el primario y comprueba que el relay funciona.
