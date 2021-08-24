@@ -285,3 +285,19 @@ De esta forma todos los mails a info@devops-alumno08.com llegarán a postmaster 
 > Enciende un servidor tipo CX11 con debian y mira como configurar este servidor como mx secundario.
 > 
 > Cuando lo tengas instalado y configurado intenta apagar el servidor principal. Cuando esté apagado envia un correo y mira en el log del secundario si lo recibe. Una vez recibido por el secundario enciende el primario y comprueba que el relay funciona.
+
+Levantamos un nuevo servidor con una copia de la configuración y modificamos el dominio desde la bdd para que sea relay:
+```
+use vmail;
+UPDATE domain SET transport='relay:[135.181.107.5]:25',backupmx=1 WHERE domain='devops-alumno08.com';
+```
+Actualizamos la configuración DNS, creamos 2 registros para el nuevo servidor mail2.devops-alumno08.com
+![image](https://user-images.githubusercontent.com/65896169/130665234-c57959bc-4301-4139-9422-28338d9e285b.png)
+
+Mandamos un correo y observamos en los logs cómo nos llega al servidor:
+```
+Aug 24 19:41:23 mail2 iredapd [209.85.216.42] RCPT, enrique.sanz@secuoyas.com -> postmaster@devops-alumno08.com, DUNNO [sasl_username=, sender=enrique.sanz@secuoyas.com, client_name=mail-pj1-f42.google.com, reverse_client_name=mail-pj1-f42.google.com, helo=mail-pj1-f42.google.com, encryption_protocol=TLSv1.3, encryption_cipher=TLS_AES_128_GCM_SHA256, server_port=25, process_time=0.1061s]
+Aug 24 19:41:23 mail2 iredapd [209.85.216.42] END-OF-MESSAGE, enrique.sanz@secuoyas.com -> postmaster@devops-alumno08.com, DUNNO [recipient_count=1, size=4062, process_time=0.0054s]
+```
+
+Encendemos de nuevo el server y vemos cómo ahora se recibe el mail finalmente al recipiente.
