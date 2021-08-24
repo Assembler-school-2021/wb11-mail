@@ -270,6 +270,17 @@ netdata (monitor):
 > La feature de alias de correo es de pago pero se puede utilizar sin pagar. Examina la base de datos, busca ayuda en google y averigua como crear un alias info@devops-master.com que apunte a las 2 cuentas creadas anteriormente.
 > Cuando esté configurado, envia un correo a info y comprueba que ambos lo reciben.
 
+Entramos en la bdd y configuramos un alias y dos forwardings:
+```
+use vmail;
+INSERT INTO alias (address, domain, active) VALUES ('info@devops-alumno08.com','devops-alumno08.com',1);
+INSERT INTO forwardings (address, forwarding, domain, dest_domain, is_list, active) VALUES ('info@devops-alumno08.com','postmaster@d
+evops-alumno08.com','devops-alumno08.com','devops-alumno08.com',1,1);
+INSERT INTO forwardings (address, forwarding, domain, dest_domain, is_list, active) VALUES ('info@devops-alumno08.com','enrique.sanz@d
+evops-alumno08.com','devops-alumno08.com','devops-alumno08.com',1,1);
+```
+De esta forma todos los mails a info@devops-alumno08.com llegarán a postmaster y enrique.sanz
+
 ## Secondary MX.
 > Enciende un servidor tipo CX11 con debian y mira como configurar este servidor como mx secundario.
 > 
